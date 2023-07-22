@@ -1,0 +1,32 @@
+// File: cloud/Docker
+
+// Dockerfile
+FROM node:14-alpine
+
+WORKDIR /app
+
+COPY package*.json ./
+
+RUN npm install
+
+COPY . .
+
+EXPOSE 3000
+
+CMD ["npm", "start"]
+
+// docker-compose.yml
+version: '3'
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 3000:3000
+    volumes:
+      - .:/app
+    environment:
+      - NODE_ENV=production
+
+This code sets up a Dockerfile and docker-compose.yml file for containerizing the application components using Docker. The Dockerfile installs the necessary dependencies, copies the application code, exposes the port, and starts the application. The docker-compose.yml file defines the service, builds the Docker image, maps the ports, mounts the volume, and sets the environment variables.

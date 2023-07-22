@@ -1,0 +1,36 @@
+// File: cloud/AWS.js
+
+const AWS = require('aws-sdk');
+
+// Set up AWS credentials
+AWS.config.update({
+  accessKeyId: 'YOUR_ACCESS_KEY',
+  secretAccessKey: 'YOUR_SECRET_ACCESS_KEY',
+  region: 'YOUR_REGION'
+});
+
+// Create an instance of the AWS S3 service
+const s3 = new AWS.S3();
+
+// Example function to upload a file to S3
+const uploadFileToS3 = (file, bucketName, key) => {
+  const params = {
+    Bucket: bucketName,
+    Key: key,
+    Body: file
+  };
+
+  return new Promise((resolve, reject) => {
+    s3.upload(params, (err, data) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(data);
+      }
+    });
+  });
+};
+
+module.exports = {
+  uploadFileToS3
+};

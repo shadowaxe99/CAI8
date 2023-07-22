@@ -1,0 +1,44 @@
+// backend/MongoDB.js
+
+const mongoose = require('mongoose');
+
+// Connect to MongoDB
+mongoose.connect('mongodb://localhost:27017/talentAgency', {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+})
+  .then(() => {
+    console.log('Connected to MongoDB');
+  })
+  .catch((error) => {
+    console.error('Failed to connect to MongoDB:', error);
+  });
+
+// Define schema for influencers and celebrities
+const talentSchema = new mongoose.Schema({
+  name: {
+    type: String,
+    required: true,
+  },
+  demographics: {
+    type: String,
+    required: true,
+  },
+  niche: {
+    type: String,
+    required: true,
+  },
+  audienceSize: {
+    type: Number,
+    required: true,
+  },
+  engagementMetrics: {
+    type: String,
+    required: true,
+  },
+});
+
+// Create model for influencers and celebrities
+const Talent = mongoose.model('Talent', talentSchema);
+
+module.exports = Talent;

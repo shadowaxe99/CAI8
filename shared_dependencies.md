@@ -1,0 +1,23 @@
+Shared dependencies between the generated files:
+
+- React.js
+- Redux
+- HTML5/CSS3
+- Bootstrap
+- GraphQL
+- Node.js
+- Express.js
+- GraphQL Server (Apollo Server)
+- MongoDB
+- TensorFlow
+- Scikit-learn
+- WebSockets (Socket.io or Pusher)
+- Passport.js
+- OAuth
+- AWS
+- Docker
+- ELK Stack (Elasticsearch, Logstash, Kibana)
+- Stripe
+- Swagger/OpenAPI
+- Git
+- Jest or Mocha

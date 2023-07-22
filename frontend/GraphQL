@@ -1,0 +1,139 @@
+// frontend/GraphQL.js
+
+import { gql } from 'graphql';
+
+// Define GraphQL queries and mutations
+
+export const GET_INFLUENCERS = gql`
+  query GetInfluencers {
+    influencers {
+      id
+      name
+      demographics {
+        age
+        gender
+        location
+      }
+      niche
+      audienceSize
+      engagementMetrics {
+        likes
+        comments
+        shares
+      }
+    }
+  }
+`;
+
+export const GET_BRANDS = gql`
+  query GetBrands {
+    brands {
+      id
+      name
+      industry
+    }
+  }
+`;
+
+export const CREATE_CAMPAIGN = gql`
+  mutation CreateCampaign($brandId: ID!, $influencerId: ID!, $content: String!) {
+    createCampaign(brandId: $brandId, influencerId: $influencerId, content: $content) {
+      id
+      brand {
+        name
+      }
+      influencer {
+        name
+      }
+      content
+    }
+  }
+`;
+
+export const GET_CAMPAIGNS = gql`
+  query GetCampaigns {
+    campaigns {
+      id
+      brand {
+        name
+      }
+      influencer {
+        name
+      }
+      content
+    }
+  }
+`;
+
+export const GET_ANALYTICS = gql`
+  query GetAnalytics($campaignId: ID!) {
+    analytics(campaignId: $campaignId) {
+      impressions
+      clicks
+      conversions
+      revenue
+    }
+  }
+`;
+
+export const CREATE_CONTRACT = gql`
+  mutation CreateContract($brandId: ID!, $influencerId: ID!, $terms: String!) {
+    createContract(brandId: $brandId, influencerId: $influencerId, terms: $terms) {
+      id
+      brand {
+        name
+      }
+      influencer {
+        name
+      }
+      terms
+    }
+  }
+`;
+
+export const GET_CONTRACTS = gql`
+  query GetContracts {
+    contracts {
+      id
+      brand {
+        name
+      }
+      influencer {
+        name
+      }
+      terms
+    }
+  }
+`;
+
+export const SEND_MESSAGE = gql`
+  mutation SendMessage($senderId: ID!, $receiverId: ID!, $message: String!) {
+    sendMessage(senderId: $senderId, receiverId: $receiverId, message: $message) {
+      id
+      sender {
+        name
+      }
+      receiver {
+        name
+      }
+      message
+    }
+  }
+`;
+
+export const GET_MESSAGES = gql`
+  query GetMessages {
+    messages {
+      id
+      sender {
+        name
+      }
+      receiver {
+        name
+      }
+      message
+    }
+  }
+`;
+
+// Export the GraphQL queries and mutations for use in the frontend components.

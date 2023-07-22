@@ -1,0 +1,16 @@
+// File: frontend/Bootstrap
+
+import React from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css';
+
+function App() {
+  return (
+    <div className="container">
+      <h1>Welcome to AI Agent Talent Agency</h1>
+      <p>Connect talent with brands, manage influencer campaigns, and facilitate seamless communication.</p>
+      {/* Add your components and UI elements here */}
+    </div>
+  );
+}
+
+export default App;

@@ -1,0 +1,67 @@
+// frontend/Redux.js
+
+import { createStore, combineReducers } from 'redux';
+
+// Define initial state
+const initialState = {
+  talent: [],
+  brands: [],
+  campaigns: [],
+  analytics: {},
+  content: {},
+  contracts: [],
+  communication: {},
+  compensation: {},
+  scouting: {},
+  privacy: {},
+  payment: {},
+  profiles: {},
+  integration: {},
+  reports: {},
+  feedback: {},
+};
+
+// Define reducers
+const talentReducer = (state = initialState.talent, action) => {
+  switch (action.type) {
+    case 'ADD_TALENT':
+      return [...state, action.payload];
+    case 'REMOVE_TALENT':
+      return state.filter((talent) => talent.id !== action.payload);
+    default:
+      return state;
+  }
+};
+
+const brandsReducer = (state = initialState.brands, action) => {
+  switch (action.type) {
+    case 'ADD_BRAND':
+      return [...state, action.payload];
+    case 'REMOVE_BRAND':
+      return state.filter((brand) => brand.id !== action.payload);
+    default:
+      return state;
+  }
+};
+
+const campaignsReducer = (state = initialState.campaigns, action) => {
+  switch (action.type) {
+    case 'ADD_CAMPAIGN':
+      return [...state, action.payload];
+    case 'REMOVE_CAMPAIGN':
+      return state.filter((campaign) => campaign.id !== action.payload);
+    default:
+      return state;
+  }
+};
+
+const rootReducer = combineReducers({
+  talent: talentReducer,
+  brands: brandsReducer,
+  campaigns: campaignsReducer,
+});
+
+// Create store
+const store = createStore(rootReducer);
+
+export default store;
