@@ -1,0 +1,41 @@
+// File: authentication/OAuth.js
+
+const passport = require('passport');
+const OAuthStrategy = require('passport-oauth').OAuthStrategy;
+
+// Configure OAuth authentication strategy
+passport.use('oauth', new OAuthStrategy({
+  consumerKey: process.env.OAUTH_CONSUMER_KEY,
+  consumerSecret: process.env.OAUTH_CONSUMER_SECRET,
+  callbackURL: process.env.OAUTH_CALLBACK_URL
+}, (token, tokenSecret, profile, done) => {
+  // Handle authentication logic here
+  // This callback function will be called after successful authentication
+  // You can access the user's profile and perform further actions
+  // For example, you can create a new user account or retrieve existing user data
+  // Once done, call the 'done' function to proceed with the authentication process
+  done(null, profile);
+}));
+
+// Middleware to authenticate requests using OAuth
+const authenticateOAuth = (req, res, next) => {
+  passport.authenticate('oauth', { session: false }, (err, user) => {
+    if (err) {
+      // Handle error during authentication
+      return next(err);
+    }
+    if (!user) {
+      // Handle authentication failure
+      return res.status(401).json({ message: 'Authentication failed' });
+    }
+    // Authentication successful
+    // You can perform additional actions here, such as generating access tokens
+    // Set the authenticated user in the request object
+    req.user = user;
+    next();
+  })(req, res, next);
+};
+
+module.exports = {
+  authenticateOAuth
+};

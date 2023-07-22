@@ -1,0 +1,145 @@
+// Import necessary dependencies
+const { ApolloServer, gql } = require('apollo-server');
+const { buildFederatedSchema } = require('@apollo/federation');
+
+// Define the GraphQL schema
+const typeDefs = gql`
+  type Talent {
+    id: ID!
+    name: String!
+    demographics: Demographics!
+    niche: String!
+    audienceSize: Int!
+    engagementMetrics: EngagementMetrics!
+  }
+
+  type Demographics {
+    age: Int!
+    gender: String!
+    location: String!
+  }
+
+  type EngagementMetrics {
+    likes: Int!
+    comments: Int!
+    shares: Int!
+  }
+
+  type Brand {
+    id: ID!
+    name: String!
+    collaborations: [Collaboration!]!
+  }
+
+  type Collaboration {
+    id: ID!
+    talent: Talent!
+    campaign: Campaign!
+    contract: Contract!
+  }
+
+  type Campaign {
+    id: ID!
+    name: String!
+    status: String!
+    content: String!
+    schedule: String!
+  }
+
+  type Contract {
+    id: ID!
+    terms: String!
+    revisions: Int!
+  }
+
+  type Query {
+    talent(id: ID!): Talent
+    brand(id: ID!): Brand
+  }
+
+  type Mutation {
+    createTalent(name: String!, demographics: DemographicsInput!, niche: String!, audienceSize: Int!, engagementMetrics: EngagementMetricsInput!): Talent
+    createBrand(name: String!): Brand
+    createCollaboration(talentId: ID!, brandId: ID!, campaign: CampaignInput!, contract: ContractInput!): Collaboration
+  }
+
+  input DemographicsInput {
+    age: Int!
+    gender: String!
+    location: String!
+  }
+
+  input EngagementMetricsInput {
+    likes: Int!
+    comments: Int!
+    shares: Int!
+  }
+
+  input CampaignInput {
+    name: String!
+    content: String!
+    schedule: String!
+  }
+
+  input ContractInput {
+    terms: String!
+    revisions: Int!
+  }
+`;
+
+// Define the resolvers
+const resolvers = {
+  Query: {
+    talent: (parent, { id }, context) => {
+      // Logic to fetch talent from the database
+    },
+    brand: (parent, { id }, context) => {
+      // Logic to fetch brand from the database
+    },
+  },
+  Mutation: {
+    createTalent: (parent, { name, demographics, niche, audienceSize, engagementMetrics }, context) => {
+      // Logic to create a new talent in the database
+    },
+    createBrand: (parent, { name }, context) => {
+      // Logic to create a new brand in the database
+    },
+    createCollaboration: (parent, { talentId, brandId, campaign, contract }, context) => {
+      // Logic to create a new collaboration between talent and brand in the database
+    },
+  },
+  Talent: {
+    demographics: (parent, args, context) => {
+      // Logic to fetch demographics for a talent from the database
+    },
+    engagementMetrics: (parent, args, context) => {
+      // Logic to fetch engagement metrics for a talent from the database
+    },
+  },
+  Brand: {
+    collaborations: (parent, args, context) => {
+      // Logic to fetch collaborations for a brand from the database
+    },
+  },
+  Collaboration: {
+    talent: (parent, args, context) => {
+      // Logic to fetch talent for a collaboration from the database
+    },
+    campaign: (parent, args, context) => {
+      // Logic to fetch campaign for a collaboration from the database
+    },
+    contract: (parent, args, context) => {
+      // Logic to fetch contract for a collaboration from the database
+    },
+  },
+};
+
+// Create the Apollo Server
+const server = new ApolloServer({
+  schema: buildFederatedSchema([{ typeDefs, resolvers }]),
+});
+
+// Start the server
+server.listen().then(({ url }) => {
+  console.log(`GraphQL Server running at ${url}`);
+});

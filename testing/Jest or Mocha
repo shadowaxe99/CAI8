@@ -1,0 +1,51 @@
+// File: testing/Jest or Mocha
+
+// Install Jest or Mocha as a dev dependency
+// Run the following command in your terminal:
+// For Jest:
+// npm install --save-dev jest
+// For Mocha:
+// npm install --save-dev mocha
+
+// Import necessary dependencies
+// For Jest:
+// import { describe, it, expect } from 'jest';
+// For Mocha:
+// import { describe, it, expect } from 'mocha';
+
+// Write your tests using the describe and it functions
+// For Jest:
+// describe('My Test Suite', () => {
+//   it('My Test Case', () => {
+//     expect(true).toBe(true);
+//   });
+// });
+// For Mocha:
+// describe('My Test Suite', () => {
+//   it('My Test Case', () => {
+//     expect(true).to.be.true;
+//   });
+// });
+
+// Run the tests
+// For Jest:
+// Add the following script to your package.json file:
+// "scripts": {
+//   "test": "jest"
+// }
+// Run the tests using the following command:
+// npm test
+// For Mocha:
+// Add the following script to your package.json file:
+// "scripts": {
+//   "test": "mocha"
+// }
+// Run the tests using the following command:
+// npm test
+
+// Example test case
+describe('My Test Suite', () => {
+  it('My Test Case', () => {
+    expect(true).toBe(true);
+  });
+});

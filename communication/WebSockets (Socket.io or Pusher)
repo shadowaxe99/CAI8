@@ -1,0 +1,40 @@
+**File: communication/WebSockets (Socket.io or Pusher)**
+
+```javascript
+// Install the required dependencies
+// npm install socket.io
+
+// Import the required modules
+const http = require('http');
+const socketIO = require('socket.io');
+
+// Create a server
+const server = http.createServer();
+const io = socketIO(server);
+
+// Define event handlers for socket.io
+io.on('connection', (socket) => {
+  console.log('A user connected');
+
+  // Handle incoming messages
+  socket.on('message', (data) => {
+    console.log('Received message:', data);
+
+    // Broadcast the message to all connected clients
+    io.emit('message', data);
+  });
+
+  // Handle disconnection
+  socket.on('disconnect', () => {
+    console.log('A user disconnected');
+  });
+});
+
+// Start the server
+const port = process.env.PORT || 3000;
+server.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
+});
+```
+
+This code sets up a WebSocket server using the Socket.io library. It creates a server using the `http` module and initializes a Socket.io instance on top of it. The server listens for incoming connections and handles events such as `connection`, `message`, and `disconnect`. When a client connects, it logs a message and sets up event handlers for receiving and broadcasting messages. When a client sends a message, it logs the message and broadcasts it to all connected clients. When a client disconnects, it logs a message. The server listens on the specified port (default is 3000) and logs a message when it starts running.
